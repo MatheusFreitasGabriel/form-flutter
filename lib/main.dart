@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
     const appTitle = 'Form Validation Demo';
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: appTitle,
       home: Scaffold(
         appBar: AppBar(
@@ -50,46 +51,53 @@ class MyCustomFormState extends State<MyCustomForm> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TextFormField(
-            // The validator receives the text that the user has entered.
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: TextFormField(
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
           ),
 
-          DropdownButtonFormField<String>(
-            value: _selectedToy,
-            items: [
-              DropdownMenuItem(
-                value: 'Carrinho',
-                child: Text('Carrinho'),
-              ),
-              DropdownMenuItem(
-                value: 'Boneca',
-                child: Text('Boneca'),
-              ),
-              DropdownMenuItem(
-                value: 'Bola',
-                child: Text('Bola'),
-              ),
-            ],
-            onChanged: (value) {
-              setState(() {
-                _selectedToy = value;
-              });
-            },
-            validator: (value) {
-              if (value == null) {
-                return 'Selecione um brinquedo';
-              }
-              return null;
-            },
-            hint: Text('Escolha um brinquedo'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: DropdownButtonFormField<String>(
+              value: _selectedToy,
+              items: [
+                DropdownMenuItem(
+                  value: 'Carrinho',
+                  child: Text('Carrinho'),
+                ),
+                DropdownMenuItem(
+                  value: 'Boneca',
+                  child: Text('Boneca'),
+                ),
+                DropdownMenuItem(
+                  value: 'Bola',
+                  child: Text('Bola'),
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  _selectedToy = value;
+                });
+              },
+              validator: (value) {
+                if (value == null) {
+                  return 'Selecione um brinquedo';
+                }
+                return null;
+              },
+              hint: Text('Escolha um brinquedo'),
+            ),
           ),
 
           Padding(
