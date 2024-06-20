@@ -40,10 +40,12 @@ class MyCustomFormState extends State<MyCustomForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
-  String _passar = "";
+
+  // Variable to hold the selected toy
+  String? _selectedToy;
+
   @override
   Widget build(BuildContext context) {
-    
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -59,6 +61,37 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+
+          DropdownButtonFormField<String>(
+            value: _selectedToy,
+            items: [
+              DropdownMenuItem(
+                value: 'Carrinho',
+                child: Text('Carrinho'),
+              ),
+              DropdownMenuItem(
+                value: 'Boneca',
+                child: Text('Boneca'),
+              ),
+              DropdownMenuItem(
+                value: 'Bola',
+                child: Text('Bola'),
+              ),
+            ],
+            onChanged: (value) {
+              setState(() {
+                _selectedToy = value;
+              });
+            },
+            validator: (value) {
+              if (value == null) {
+                return 'Selecione um brinquedo';
+              }
+              return null;
+            },
+            hint: Text('Escolha um brinquedo'),
+          ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
@@ -71,7 +104,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                     const SnackBar(content: Text('Processing Data')),
                   );
                 }
-                return null;
               },
               child: const Text('Submit'),
             ),
